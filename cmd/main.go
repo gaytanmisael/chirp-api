@@ -2,6 +2,7 @@ package main
 
 import (
 	"chirp-api/app/middleware"
+	"chirp-api/app/module/chirp"
 	"chirp-api/app/router"
 	"chirp-api/internal/bootstrap"
 	"chirp-api/internal/bootstrap/database"
@@ -20,6 +21,8 @@ func main() {
 		fx.Provide(database.NewDatabase),
 		fx.Provide(middleware.NewMiddleware),
 		fx.Provide(router.NewRouter),
+
+		chirp.NewChirpModule,
 
 		fx.Invoke(bootstrap.Start),
 
