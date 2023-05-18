@@ -35,5 +35,9 @@ func (r *ChirpRouter) RegisterChirpRoutes() {
 
 	r.App.Route("/chirps", func(router fiber.Router) {
 		router.Get("/", chirpController.Index)
+		router.Get("/:id", chirpController.Show)
+		router.Post("/", chirpController.Store)
+		router.Patch("/:id", chirpController.Update)
+		router.Delete("/:id", chirpController.Destroy)
 	})
 }

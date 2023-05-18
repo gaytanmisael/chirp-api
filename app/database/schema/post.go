@@ -24,7 +24,9 @@ func (Post) Fields() []ent.Field {
 		field.String("content").Annotations(entsql.Annotation{
 			Size: 255,
 		}),
-		field.String("authorId"),
+		field.String("authorId").Annotations(entsql.Annotation{
+			Size: 255,
+		}),
 	}
 }
 

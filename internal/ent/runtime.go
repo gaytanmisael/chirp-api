@@ -3,8 +3,8 @@
 package ent
 
 import (
-	"chirp-api/internal/ent/post"
 	"chirp-api/app/database/schema"
+	"chirp-api/internal/ent/post"
 	"time"
 
 	"github.com/google/uuid"
