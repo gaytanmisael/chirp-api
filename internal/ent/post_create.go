@@ -35,6 +35,20 @@ func (pc *PostCreate) SetNillableCreatedAt(t *time.Time) *PostCreate {
 	return pc
 }
 
+// SetUpdatedAt sets the "updated_at" field.
+func (pc *PostCreate) SetUpdatedAt(t time.Time) *PostCreate {
+	pc.mutation.SetUpdatedAt(t)
+	return pc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (pc *PostCreate) SetNillableUpdatedAt(t *time.Time) *PostCreate {
+	if t != nil {
+		pc.SetUpdatedAt(*t)
+	}
+	return pc
+}
+
 // SetContent sets the "content" field.
 func (pc *PostCreate) SetContent(s string) *PostCreate {
 	pc.mutation.SetContent(s)
@@ -100,6 +114,10 @@ func (pc *PostCreate) defaults() {
 		v := post.DefaultCreatedAt()
 		pc.mutation.SetCreatedAt(v)
 	}
+	if _, ok := pc.mutation.UpdatedAt(); !ok {
+		v := post.DefaultUpdatedAt()
+		pc.mutation.SetUpdatedAt(v)
+	}
 	if _, ok := pc.mutation.ID(); !ok {
 		v := post.DefaultID()
 		pc.mutation.SetID(v)
@@ -110,6 +128,9 @@ func (pc *PostCreate) defaults() {
 func (pc *PostCreate) check() error {
 	if _, ok := pc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Post.created_at"`)}
+	}
+	if _, ok := pc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Post.updated_at"`)}
 	}
 	if _, ok := pc.mutation.Content(); !ok {
 		return &ValidationError{Name: "content", err: errors.New(`ent: missing required field "Post.content"`)}
@@ -155,6 +176,10 @@ func (pc *PostCreate) createSpec() (*Post, *sqlgraph.CreateSpec) {
 	if value, ok := pc.mutation.CreatedAt(); ok {
 		_spec.SetField(post.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
+	}
+	if value, ok := pc.mutation.UpdatedAt(); ok {
+		_spec.SetField(post.FieldUpdatedAt, field.TypeTime, value)
+		_node.UpdatedAt = value
 	}
 	if value, ok := pc.mutation.Content(); ok {
 		_spec.SetField(post.FieldContent, field.TypeString, value)

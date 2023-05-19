@@ -22,9 +22,9 @@ func (e *Error) Error() string {
 }
 
 type Response struct {
-	Code     int      `json:"code"`
-	Messages Messages `json:"messages,omitempty"`
 	Data     any      `json:"data,omitempty"`
+	Messages Messages `json:"messages,omitempty"`
+	Code     int      `json:"code"`
 }
 
 var IsProduction bool

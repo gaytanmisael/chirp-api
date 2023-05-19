@@ -20,6 +20,8 @@ type Post struct {
 	ID uuid.UUID `json:"id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Content holds the value of the "content" field.
 	Content string `json:"content,omitempty"`
 	// AuthorId holds the value of the "authorId" field.
@@ -34,7 +36,7 @@ func (*Post) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case post.FieldContent, post.FieldAuthorId:
 			values[i] = new(sql.NullString)
-		case post.FieldCreatedAt:
+		case post.FieldCreatedAt, post.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		case post.FieldID:
 			values[i] = new(uuid.UUID)
@@ -64,6 +66,12 @@ func (po *Post) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
 				po.CreatedAt = value.Time
+			}
+		case post.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				po.UpdatedAt = value.Time
 			}
 		case post.FieldContent:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -115,6 +123,9 @@ func (po *Post) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", po.ID))
 	builder.WriteString("created_at=")
 	builder.WriteString(po.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(po.UpdatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("content=")
 	builder.WriteString(po.Content)

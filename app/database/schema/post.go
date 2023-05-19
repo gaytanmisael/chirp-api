@@ -17,10 +17,9 @@ type Post struct {
 // Fields of the Post.
 func (Post) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuid.UUID{}).
-			Default(uuid.New),
-		field.Time("created_at").
-			Default(time.Now),
+		field.UUID("id", uuid.UUID{}).Default(uuid.New),
+		field.Time("created_at").Default(time.Now).Immutable(),
+		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 		field.String("content").Annotations(entsql.Annotation{
 			Size: 255,
 		}),
