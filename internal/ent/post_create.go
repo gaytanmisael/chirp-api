@@ -35,6 +35,18 @@ func (pc *PostCreate) SetNillableCreatedAt(t *time.Time) *PostCreate {
 	return pc
 }
 
+// SetContent sets the "content" field.
+func (pc *PostCreate) SetContent(s string) *PostCreate {
+	pc.mutation.SetContent(s)
+	return pc
+}
+
+// SetAuthorID sets the "author_id" field.
+func (pc *PostCreate) SetAuthorID(s string) *PostCreate {
+	pc.mutation.SetAuthorID(s)
+	return pc
+}
+
 // SetUpdatedAt sets the "updated_at" field.
 func (pc *PostCreate) SetUpdatedAt(t time.Time) *PostCreate {
 	pc.mutation.SetUpdatedAt(t)
@@ -46,18 +58,6 @@ func (pc *PostCreate) SetNillableUpdatedAt(t *time.Time) *PostCreate {
 	if t != nil {
 		pc.SetUpdatedAt(*t)
 	}
-	return pc
-}
-
-// SetContent sets the "content" field.
-func (pc *PostCreate) SetContent(s string) *PostCreate {
-	pc.mutation.SetContent(s)
-	return pc
-}
-
-// SetAuthorId sets the "authorId" field.
-func (pc *PostCreate) SetAuthorId(s string) *PostCreate {
-	pc.mutation.SetAuthorId(s)
 	return pc
 }
 
@@ -129,14 +129,14 @@ func (pc *PostCreate) check() error {
 	if _, ok := pc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Post.created_at"`)}
 	}
-	if _, ok := pc.mutation.UpdatedAt(); !ok {
-		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Post.updated_at"`)}
-	}
 	if _, ok := pc.mutation.Content(); !ok {
 		return &ValidationError{Name: "content", err: errors.New(`ent: missing required field "Post.content"`)}
 	}
-	if _, ok := pc.mutation.AuthorId(); !ok {
-		return &ValidationError{Name: "authorId", err: errors.New(`ent: missing required field "Post.authorId"`)}
+	if _, ok := pc.mutation.AuthorID(); !ok {
+		return &ValidationError{Name: "author_id", err: errors.New(`ent: missing required field "Post.author_id"`)}
+	}
+	if _, ok := pc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Post.updated_at"`)}
 	}
 	return nil
 }
@@ -177,17 +177,17 @@ func (pc *PostCreate) createSpec() (*Post, *sqlgraph.CreateSpec) {
 		_spec.SetField(post.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := pc.mutation.UpdatedAt(); ok {
-		_spec.SetField(post.FieldUpdatedAt, field.TypeTime, value)
-		_node.UpdatedAt = value
-	}
 	if value, ok := pc.mutation.Content(); ok {
 		_spec.SetField(post.FieldContent, field.TypeString, value)
 		_node.Content = value
 	}
-	if value, ok := pc.mutation.AuthorId(); ok {
-		_spec.SetField(post.FieldAuthorId, field.TypeString, value)
-		_node.AuthorId = value
+	if value, ok := pc.mutation.AuthorID(); ok {
+		_spec.SetField(post.FieldAuthorID, field.TypeString, value)
+		_node.AuthorID = value
+	}
+	if value, ok := pc.mutation.UpdatedAt(); ok {
+		_spec.SetField(post.FieldUpdatedAt, field.TypeTime, value)
+		_node.UpdatedAt = value
 	}
 	return _node, _spec
 }

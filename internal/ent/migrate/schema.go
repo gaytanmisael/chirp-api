@@ -12,9 +12,9 @@ var (
 	PostsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "content", Type: field.TypeString, Size: 255},
-		{Name: "author_id", Type: field.TypeString, Size: 255},
+		{Name: "author_id", Type: field.TypeString},
+		{Name: "updated_at", Type: field.TypeTime},
 	}
 	// PostsTable holds the schema information for the "posts" table.
 	PostsTable = &schema.Table{

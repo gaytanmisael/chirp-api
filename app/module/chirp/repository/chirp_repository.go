@@ -37,11 +37,11 @@ func (s *ChirpRepository) GetChirpByID(id uuid.UUID) (*ent.Post, error) {
 }
 
 func (s *ChirpRepository) CreatePost(request request.PostRequest) (*ent.Post, error) {
-	return s.DB.Ent.Post.Create().SetContent(request.Content).SetAuthorId(request.AuthorId).Save(context.Background())
+	return s.DB.Ent.Post.Create().SetContent(request.Content).SetAuthorID(request.AuthorId).Save(context.Background())
 }
 
 func (s *ChirpRepository) UpdatePost(id uuid.UUID, request request.PostRequest) (*ent.Post, error) {
-	return s.DB.Ent.Post.UpdateOneID(id).SetContent(request.Content).Save(context.Background())
+	return s.DB.Ent.Post.UpdateOneID(id).SetContent(request.Content).SetAuthorID(request.AuthorId).Save(context.Background())
 }
 
 func (s *ChirpRepository) DeletePost(id uuid.UUID) error {

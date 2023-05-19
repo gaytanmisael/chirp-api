@@ -28,21 +28,21 @@ func (pu *PostUpdate) Where(ps ...predicate.Post) *PostUpdate {
 	return pu
 }
 
-// SetUpdatedAt sets the "updated_at" field.
-func (pu *PostUpdate) SetUpdatedAt(t time.Time) *PostUpdate {
-	pu.mutation.SetUpdatedAt(t)
-	return pu
-}
-
 // SetContent sets the "content" field.
 func (pu *PostUpdate) SetContent(s string) *PostUpdate {
 	pu.mutation.SetContent(s)
 	return pu
 }
 
-// SetAuthorId sets the "authorId" field.
-func (pu *PostUpdate) SetAuthorId(s string) *PostUpdate {
-	pu.mutation.SetAuthorId(s)
+// SetAuthorID sets the "author_id" field.
+func (pu *PostUpdate) SetAuthorID(s string) *PostUpdate {
+	pu.mutation.SetAuthorID(s)
+	return pu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pu *PostUpdate) SetUpdatedAt(t time.Time) *PostUpdate {
+	pu.mutation.SetUpdatedAt(t)
 	return pu
 }
 
@@ -96,14 +96,14 @@ func (pu *PostUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := pu.mutation.UpdatedAt(); ok {
-		_spec.SetField(post.FieldUpdatedAt, field.TypeTime, value)
-	}
 	if value, ok := pu.mutation.Content(); ok {
 		_spec.SetField(post.FieldContent, field.TypeString, value)
 	}
-	if value, ok := pu.mutation.AuthorId(); ok {
-		_spec.SetField(post.FieldAuthorId, field.TypeString, value)
+	if value, ok := pu.mutation.AuthorID(); ok {
+		_spec.SetField(post.FieldAuthorID, field.TypeString, value)
+	}
+	if value, ok := pu.mutation.UpdatedAt(); ok {
+		_spec.SetField(post.FieldUpdatedAt, field.TypeTime, value)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, pu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -125,21 +125,21 @@ type PostUpdateOne struct {
 	mutation *PostMutation
 }
 
-// SetUpdatedAt sets the "updated_at" field.
-func (puo *PostUpdateOne) SetUpdatedAt(t time.Time) *PostUpdateOne {
-	puo.mutation.SetUpdatedAt(t)
-	return puo
-}
-
 // SetContent sets the "content" field.
 func (puo *PostUpdateOne) SetContent(s string) *PostUpdateOne {
 	puo.mutation.SetContent(s)
 	return puo
 }
 
-// SetAuthorId sets the "authorId" field.
-func (puo *PostUpdateOne) SetAuthorId(s string) *PostUpdateOne {
-	puo.mutation.SetAuthorId(s)
+// SetAuthorID sets the "author_id" field.
+func (puo *PostUpdateOne) SetAuthorID(s string) *PostUpdateOne {
+	puo.mutation.SetAuthorID(s)
+	return puo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (puo *PostUpdateOne) SetUpdatedAt(t time.Time) *PostUpdateOne {
+	puo.mutation.SetUpdatedAt(t)
 	return puo
 }
 
@@ -223,14 +223,14 @@ func (puo *PostUpdateOne) sqlSave(ctx context.Context) (_node *Post, err error) 
 			}
 		}
 	}
-	if value, ok := puo.mutation.UpdatedAt(); ok {
-		_spec.SetField(post.FieldUpdatedAt, field.TypeTime, value)
-	}
 	if value, ok := puo.mutation.Content(); ok {
 		_spec.SetField(post.FieldContent, field.TypeString, value)
 	}
-	if value, ok := puo.mutation.AuthorId(); ok {
-		_spec.SetField(post.FieldAuthorId, field.TypeString, value)
+	if value, ok := puo.mutation.AuthorID(); ok {
+		_spec.SetField(post.FieldAuthorID, field.TypeString, value)
+	}
+	if value, ok := puo.mutation.UpdatedAt(); ok {
+		_spec.SetField(post.FieldUpdatedAt, field.TypeTime, value)
 	}
 	_node = &Post{config: puo.config}
 	_spec.Assign = _node.assignValues

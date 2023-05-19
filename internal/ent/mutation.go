@@ -35,9 +35,9 @@ type PostMutation struct {
 	typ           string
 	id            *uuid.UUID
 	created_at    *time.Time
-	updated_at    *time.Time
 	content       *string
-	authorId      *string
+	author_id     *string
+	updated_at    *time.Time
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*Post, error)
@@ -184,42 +184,6 @@ func (m *PostMutation) ResetCreatedAt() {
 	m.created_at = nil
 }
 
-// SetUpdatedAt sets the "updated_at" field.
-func (m *PostMutation) SetUpdatedAt(t time.Time) {
-	m.updated_at = &t
-}
-
-// UpdatedAt returns the value of the "updated_at" field in the mutation.
-func (m *PostMutation) UpdatedAt() (r time.Time, exists bool) {
-	v := m.updated_at
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldUpdatedAt returns the old "updated_at" field's value of the Post entity.
-// If the Post object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *PostMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
-	}
-	return oldValue.UpdatedAt, nil
-}
-
-// ResetUpdatedAt resets all changes to the "updated_at" field.
-func (m *PostMutation) ResetUpdatedAt() {
-	m.updated_at = nil
-}
-
 // SetContent sets the "content" field.
 func (m *PostMutation) SetContent(s string) {
 	m.content = &s
@@ -256,40 +220,76 @@ func (m *PostMutation) ResetContent() {
 	m.content = nil
 }
 
-// SetAuthorId sets the "authorId" field.
-func (m *PostMutation) SetAuthorId(s string) {
-	m.authorId = &s
+// SetAuthorID sets the "author_id" field.
+func (m *PostMutation) SetAuthorID(s string) {
+	m.author_id = &s
 }
 
-// AuthorId returns the value of the "authorId" field in the mutation.
-func (m *PostMutation) AuthorId() (r string, exists bool) {
-	v := m.authorId
+// AuthorID returns the value of the "author_id" field in the mutation.
+func (m *PostMutation) AuthorID() (r string, exists bool) {
+	v := m.author_id
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldAuthorId returns the old "authorId" field's value of the Post entity.
+// OldAuthorID returns the old "author_id" field's value of the Post entity.
 // If the Post object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *PostMutation) OldAuthorId(ctx context.Context) (v string, err error) {
+func (m *PostMutation) OldAuthorID(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldAuthorId is only allowed on UpdateOne operations")
+		return v, errors.New("OldAuthorID is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldAuthorId requires an ID field in the mutation")
+		return v, errors.New("OldAuthorID requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldAuthorId: %w", err)
+		return v, fmt.Errorf("querying old value for OldAuthorID: %w", err)
 	}
-	return oldValue.AuthorId, nil
+	return oldValue.AuthorID, nil
 }
 
-// ResetAuthorId resets all changes to the "authorId" field.
-func (m *PostMutation) ResetAuthorId() {
-	m.authorId = nil
+// ResetAuthorID resets all changes to the "author_id" field.
+func (m *PostMutation) ResetAuthorID() {
+	m.author_id = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *PostMutation) SetUpdatedAt(t time.Time) {
+	m.updated_at = &t
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *PostMutation) UpdatedAt() (r time.Time, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Post entity.
+// If the Post object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *PostMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *PostMutation) ResetUpdatedAt() {
+	m.updated_at = nil
 }
 
 // Where appends a list predicates to the PostMutation builder.
@@ -330,14 +330,14 @@ func (m *PostMutation) Fields() []string {
 	if m.created_at != nil {
 		fields = append(fields, post.FieldCreatedAt)
 	}
-	if m.updated_at != nil {
-		fields = append(fields, post.FieldUpdatedAt)
-	}
 	if m.content != nil {
 		fields = append(fields, post.FieldContent)
 	}
-	if m.authorId != nil {
-		fields = append(fields, post.FieldAuthorId)
+	if m.author_id != nil {
+		fields = append(fields, post.FieldAuthorID)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, post.FieldUpdatedAt)
 	}
 	return fields
 }
@@ -349,12 +349,12 @@ func (m *PostMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case post.FieldCreatedAt:
 		return m.CreatedAt()
-	case post.FieldUpdatedAt:
-		return m.UpdatedAt()
 	case post.FieldContent:
 		return m.Content()
-	case post.FieldAuthorId:
-		return m.AuthorId()
+	case post.FieldAuthorID:
+		return m.AuthorID()
+	case post.FieldUpdatedAt:
+		return m.UpdatedAt()
 	}
 	return nil, false
 }
@@ -366,12 +366,12 @@ func (m *PostMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	switch name {
 	case post.FieldCreatedAt:
 		return m.OldCreatedAt(ctx)
-	case post.FieldUpdatedAt:
-		return m.OldUpdatedAt(ctx)
 	case post.FieldContent:
 		return m.OldContent(ctx)
-	case post.FieldAuthorId:
-		return m.OldAuthorId(ctx)
+	case post.FieldAuthorID:
+		return m.OldAuthorID(ctx)
+	case post.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
 	}
 	return nil, fmt.Errorf("unknown Post field %s", name)
 }
@@ -388,13 +388,6 @@ func (m *PostMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCreatedAt(v)
 		return nil
-	case post.FieldUpdatedAt:
-		v, ok := value.(time.Time)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetUpdatedAt(v)
-		return nil
 	case post.FieldContent:
 		v, ok := value.(string)
 		if !ok {
@@ -402,12 +395,19 @@ func (m *PostMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetContent(v)
 		return nil
-	case post.FieldAuthorId:
+	case post.FieldAuthorID:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetAuthorId(v)
+		m.SetAuthorID(v)
+		return nil
+	case post.FieldUpdatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Post field %s", name)
@@ -461,14 +461,14 @@ func (m *PostMutation) ResetField(name string) error {
 	case post.FieldCreatedAt:
 		m.ResetCreatedAt()
 		return nil
-	case post.FieldUpdatedAt:
-		m.ResetUpdatedAt()
-		return nil
 	case post.FieldContent:
 		m.ResetContent()
 		return nil
-	case post.FieldAuthorId:
-		m.ResetAuthorId()
+	case post.FieldAuthorID:
+		m.ResetAuthorID()
+		return nil
+	case post.FieldUpdatedAt:
+		m.ResetUpdatedAt()
 		return nil
 	}
 	return fmt.Errorf("unknown Post field %s", name)

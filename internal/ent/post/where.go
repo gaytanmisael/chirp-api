@@ -60,19 +60,19 @@ func CreatedAt(v time.Time) predicate.Post {
 	return predicate.Post(sql.FieldEQ(FieldCreatedAt, v))
 }
 
-// UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
-func UpdatedAt(v time.Time) predicate.Post {
-	return predicate.Post(sql.FieldEQ(FieldUpdatedAt, v))
-}
-
 // Content applies equality check predicate on the "content" field. It's identical to ContentEQ.
 func Content(v string) predicate.Post {
 	return predicate.Post(sql.FieldEQ(FieldContent, v))
 }
 
-// AuthorId applies equality check predicate on the "authorId" field. It's identical to AuthorIdEQ.
-func AuthorId(v string) predicate.Post {
-	return predicate.Post(sql.FieldEQ(FieldAuthorId, v))
+// AuthorID applies equality check predicate on the "author_id" field. It's identical to AuthorIDEQ.
+func AuthorID(v string) predicate.Post {
+	return predicate.Post(sql.FieldEQ(FieldAuthorID, v))
+}
+
+// UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
+func UpdatedAt(v time.Time) predicate.Post {
+	return predicate.Post(sql.FieldEQ(FieldUpdatedAt, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -113,46 +113,6 @@ func CreatedAtLT(v time.Time) predicate.Post {
 // CreatedAtLTE applies the LTE predicate on the "created_at" field.
 func CreatedAtLTE(v time.Time) predicate.Post {
 	return predicate.Post(sql.FieldLTE(FieldCreatedAt, v))
-}
-
-// UpdatedAtEQ applies the EQ predicate on the "updated_at" field.
-func UpdatedAtEQ(v time.Time) predicate.Post {
-	return predicate.Post(sql.FieldEQ(FieldUpdatedAt, v))
-}
-
-// UpdatedAtNEQ applies the NEQ predicate on the "updated_at" field.
-func UpdatedAtNEQ(v time.Time) predicate.Post {
-	return predicate.Post(sql.FieldNEQ(FieldUpdatedAt, v))
-}
-
-// UpdatedAtIn applies the In predicate on the "updated_at" field.
-func UpdatedAtIn(vs ...time.Time) predicate.Post {
-	return predicate.Post(sql.FieldIn(FieldUpdatedAt, vs...))
-}
-
-// UpdatedAtNotIn applies the NotIn predicate on the "updated_at" field.
-func UpdatedAtNotIn(vs ...time.Time) predicate.Post {
-	return predicate.Post(sql.FieldNotIn(FieldUpdatedAt, vs...))
-}
-
-// UpdatedAtGT applies the GT predicate on the "updated_at" field.
-func UpdatedAtGT(v time.Time) predicate.Post {
-	return predicate.Post(sql.FieldGT(FieldUpdatedAt, v))
-}
-
-// UpdatedAtGTE applies the GTE predicate on the "updated_at" field.
-func UpdatedAtGTE(v time.Time) predicate.Post {
-	return predicate.Post(sql.FieldGTE(FieldUpdatedAt, v))
-}
-
-// UpdatedAtLT applies the LT predicate on the "updated_at" field.
-func UpdatedAtLT(v time.Time) predicate.Post {
-	return predicate.Post(sql.FieldLT(FieldUpdatedAt, v))
-}
-
-// UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
-func UpdatedAtLTE(v time.Time) predicate.Post {
-	return predicate.Post(sql.FieldLTE(FieldUpdatedAt, v))
 }
 
 // ContentEQ applies the EQ predicate on the "content" field.
@@ -220,69 +180,109 @@ func ContentContainsFold(v string) predicate.Post {
 	return predicate.Post(sql.FieldContainsFold(FieldContent, v))
 }
 
-// AuthorIdEQ applies the EQ predicate on the "authorId" field.
-func AuthorIdEQ(v string) predicate.Post {
-	return predicate.Post(sql.FieldEQ(FieldAuthorId, v))
+// AuthorIDEQ applies the EQ predicate on the "author_id" field.
+func AuthorIDEQ(v string) predicate.Post {
+	return predicate.Post(sql.FieldEQ(FieldAuthorID, v))
 }
 
-// AuthorIdNEQ applies the NEQ predicate on the "authorId" field.
-func AuthorIdNEQ(v string) predicate.Post {
-	return predicate.Post(sql.FieldNEQ(FieldAuthorId, v))
+// AuthorIDNEQ applies the NEQ predicate on the "author_id" field.
+func AuthorIDNEQ(v string) predicate.Post {
+	return predicate.Post(sql.FieldNEQ(FieldAuthorID, v))
 }
 
-// AuthorIdIn applies the In predicate on the "authorId" field.
-func AuthorIdIn(vs ...string) predicate.Post {
-	return predicate.Post(sql.FieldIn(FieldAuthorId, vs...))
+// AuthorIDIn applies the In predicate on the "author_id" field.
+func AuthorIDIn(vs ...string) predicate.Post {
+	return predicate.Post(sql.FieldIn(FieldAuthorID, vs...))
 }
 
-// AuthorIdNotIn applies the NotIn predicate on the "authorId" field.
-func AuthorIdNotIn(vs ...string) predicate.Post {
-	return predicate.Post(sql.FieldNotIn(FieldAuthorId, vs...))
+// AuthorIDNotIn applies the NotIn predicate on the "author_id" field.
+func AuthorIDNotIn(vs ...string) predicate.Post {
+	return predicate.Post(sql.FieldNotIn(FieldAuthorID, vs...))
 }
 
-// AuthorIdGT applies the GT predicate on the "authorId" field.
-func AuthorIdGT(v string) predicate.Post {
-	return predicate.Post(sql.FieldGT(FieldAuthorId, v))
+// AuthorIDGT applies the GT predicate on the "author_id" field.
+func AuthorIDGT(v string) predicate.Post {
+	return predicate.Post(sql.FieldGT(FieldAuthorID, v))
 }
 
-// AuthorIdGTE applies the GTE predicate on the "authorId" field.
-func AuthorIdGTE(v string) predicate.Post {
-	return predicate.Post(sql.FieldGTE(FieldAuthorId, v))
+// AuthorIDGTE applies the GTE predicate on the "author_id" field.
+func AuthorIDGTE(v string) predicate.Post {
+	return predicate.Post(sql.FieldGTE(FieldAuthorID, v))
 }
 
-// AuthorIdLT applies the LT predicate on the "authorId" field.
-func AuthorIdLT(v string) predicate.Post {
-	return predicate.Post(sql.FieldLT(FieldAuthorId, v))
+// AuthorIDLT applies the LT predicate on the "author_id" field.
+func AuthorIDLT(v string) predicate.Post {
+	return predicate.Post(sql.FieldLT(FieldAuthorID, v))
 }
 
-// AuthorIdLTE applies the LTE predicate on the "authorId" field.
-func AuthorIdLTE(v string) predicate.Post {
-	return predicate.Post(sql.FieldLTE(FieldAuthorId, v))
+// AuthorIDLTE applies the LTE predicate on the "author_id" field.
+func AuthorIDLTE(v string) predicate.Post {
+	return predicate.Post(sql.FieldLTE(FieldAuthorID, v))
 }
 
-// AuthorIdContains applies the Contains predicate on the "authorId" field.
-func AuthorIdContains(v string) predicate.Post {
-	return predicate.Post(sql.FieldContains(FieldAuthorId, v))
+// AuthorIDContains applies the Contains predicate on the "author_id" field.
+func AuthorIDContains(v string) predicate.Post {
+	return predicate.Post(sql.FieldContains(FieldAuthorID, v))
 }
 
-// AuthorIdHasPrefix applies the HasPrefix predicate on the "authorId" field.
-func AuthorIdHasPrefix(v string) predicate.Post {
-	return predicate.Post(sql.FieldHasPrefix(FieldAuthorId, v))
+// AuthorIDHasPrefix applies the HasPrefix predicate on the "author_id" field.
+func AuthorIDHasPrefix(v string) predicate.Post {
+	return predicate.Post(sql.FieldHasPrefix(FieldAuthorID, v))
 }
 
-// AuthorIdHasSuffix applies the HasSuffix predicate on the "authorId" field.
-func AuthorIdHasSuffix(v string) predicate.Post {
-	return predicate.Post(sql.FieldHasSuffix(FieldAuthorId, v))
+// AuthorIDHasSuffix applies the HasSuffix predicate on the "author_id" field.
+func AuthorIDHasSuffix(v string) predicate.Post {
+	return predicate.Post(sql.FieldHasSuffix(FieldAuthorID, v))
 }
 
-// AuthorIdEqualFold applies the EqualFold predicate on the "authorId" field.
-func AuthorIdEqualFold(v string) predicate.Post {
-	return predicate.Post(sql.FieldEqualFold(FieldAuthorId, v))
+// AuthorIDEqualFold applies the EqualFold predicate on the "author_id" field.
+func AuthorIDEqualFold(v string) predicate.Post {
+	return predicate.Post(sql.FieldEqualFold(FieldAuthorID, v))
 }
 
-// AuthorIdContainsFold applies the ContainsFold predicate on the "authorId" field.
-func AuthorIdContainsFold(v string) predicate.Post {
-	return predicate.Post(sql.FieldContainsFold(FieldAuthorId, v))
+// AuthorIDContainsFold applies the ContainsFold predicate on the "author_id" field.
+func AuthorIDContainsFold(v string) predicate.Post {
+	return predicate.Post(sql.FieldContainsFold(FieldAuthorID, v))
+}
+
+// UpdatedAtEQ applies the EQ predicate on the "updated_at" field.
+func UpdatedAtEQ(v time.Time) predicate.Post {
+	return predicate.Post(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtNEQ applies the NEQ predicate on the "updated_at" field.
+func UpdatedAtNEQ(v time.Time) predicate.Post {
+	return predicate.Post(sql.FieldNEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtIn applies the In predicate on the "updated_at" field.
+func UpdatedAtIn(vs ...time.Time) predicate.Post {
+	return predicate.Post(sql.FieldIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtNotIn applies the NotIn predicate on the "updated_at" field.
+func UpdatedAtNotIn(vs ...time.Time) predicate.Post {
+	return predicate.Post(sql.FieldNotIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtGT applies the GT predicate on the "updated_at" field.
+func UpdatedAtGT(v time.Time) predicate.Post {
+	return predicate.Post(sql.FieldGT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtGTE applies the GTE predicate on the "updated_at" field.
+func UpdatedAtGTE(v time.Time) predicate.Post {
+	return predicate.Post(sql.FieldGTE(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLT applies the LT predicate on the "updated_at" field.
+func UpdatedAtLT(v time.Time) predicate.Post {
+	return predicate.Post(sql.FieldLT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
+func UpdatedAtLTE(v time.Time) predicate.Post {
+	return predicate.Post(sql.FieldLTE(FieldUpdatedAt, v))
 }
 
 // And groups predicates with the AND operator between them.

@@ -20,12 +20,12 @@ type Post struct {
 	ID uuid.UUID `json:"id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	// UpdatedAt holds the value of the "updated_at" field.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Content holds the value of the "content" field.
 	Content string `json:"content,omitempty"`
-	// AuthorId holds the value of the "authorId" field.
-	AuthorId     string `json:"authorId,omitempty"`
+	// AuthorID holds the value of the "author_id" field.
+	AuthorID string `json:"author_id,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt    time.Time `json:"updated_at,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -34,7 +34,7 @@ func (*Post) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case post.FieldContent, post.FieldAuthorId:
+		case post.FieldContent, post.FieldAuthorID:
 			values[i] = new(sql.NullString)
 		case post.FieldCreatedAt, post.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -67,23 +67,23 @@ func (po *Post) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				po.CreatedAt = value.Time
 			}
-		case post.FieldUpdatedAt:
-			if value, ok := values[i].(*sql.NullTime); !ok {
-				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
-			} else if value.Valid {
-				po.UpdatedAt = value.Time
-			}
 		case post.FieldContent:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field content", values[i])
 			} else if value.Valid {
 				po.Content = value.String
 			}
-		case post.FieldAuthorId:
+		case post.FieldAuthorID:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field authorId", values[i])
+				return fmt.Errorf("unexpected type %T for field author_id", values[i])
 			} else if value.Valid {
-				po.AuthorId = value.String
+				po.AuthorID = value.String
+			}
+		case post.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				po.UpdatedAt = value.Time
 			}
 		default:
 			po.selectValues.Set(columns[i], values[i])
@@ -124,14 +124,14 @@ func (po *Post) String() string {
 	builder.WriteString("created_at=")
 	builder.WriteString(po.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
-	builder.WriteString("updated_at=")
-	builder.WriteString(po.UpdatedAt.Format(time.ANSIC))
-	builder.WriteString(", ")
 	builder.WriteString("content=")
 	builder.WriteString(po.Content)
 	builder.WriteString(", ")
-	builder.WriteString("authorId=")
-	builder.WriteString(po.AuthorId)
+	builder.WriteString("author_id=")
+	builder.WriteString(po.AuthorID)
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(po.UpdatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }
